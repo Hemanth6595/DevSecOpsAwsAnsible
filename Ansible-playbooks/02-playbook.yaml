@@ -1,4 +1,11 @@
-- name: Hellow World
+- name: Hellow World - 1 and play - 1 
+  hosts: web
+  tasks:
+  - name: print hello World
+    ansible.builtin.debug:
+      msg: "Hello World!"
+
+- name: Hellow World -2 and play -2
   hosts: web
   tasks:
   - name: print hello World
