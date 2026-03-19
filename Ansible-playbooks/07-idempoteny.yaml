@@ -1,0 +1,7 @@
+- name: idempotency
+  hosts: local
+  connection: local
+  tasks:
+    - name: add user
+      ansible.builtin.user: 
+       name: johnd
