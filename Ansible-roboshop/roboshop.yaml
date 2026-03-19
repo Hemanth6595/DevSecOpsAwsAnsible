@@ -11,9 +11,9 @@
   tasks:
     - name: creating ec2 intances
       amazon.aws.ec2_instance:
-       instance_ids: t3.micro
-       securitygroupid: "{{ sgid }}"
-       ami_id: "{{ amiid }}"
+       instance_type: t3.micro
+       security_group: "{{ sgid }}"
+       image_id: "{{ amiid }}"
        name: "{{ item }}"
        tags: 
         Project: roboshop
