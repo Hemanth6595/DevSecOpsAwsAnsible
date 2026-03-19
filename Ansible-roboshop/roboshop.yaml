@@ -2,29 +2,29 @@
   hosts: all
   connection: local
   vars:
-    securitygroupid: sg-0cc36aed8dd6406ca
-    ami_id: ami-0220d79f3f480ecf5
-    enviroment: dev
-    intances: 
+    sgid: sg-0cc36aed8dd6406ca
+    amiid: ami-0220d79f3f480ecf5
+    instancesenv: dev
+    myec2intances: 
       - mongodb
       - catalogue
   tasks:
     - name: creating ec2 intances
       amazon.aws.ec2_instance:
        instance_ids: t3.micro
-       securitygroupid: "{{securitygroupid}}"
-       ami_id: "{{ami_id}}"
-       name: "{{item}}"
+       securitygroupid: "{{ sgid }}"
+       ami_id: "{{ amiid }}"
+       name: "{{ item }}"
        tags: 
         Project: roboshop
-        Component: "{{item}}"
-        Enviroment: "{{enviroment}}"
-        name: "{{item}}-{{enviroment}}"
-      loop: "{{intances}}"
+        Component: "{{ item }}"
+        Enviroment: "{{ instancesenv }}"
+        name: "{{ item }}-{{ instancesenv }}"
+      loop: "{{ myec2intances }}"
       register: ec2_instance
 
 
     - name: ec2_instance_output
       ansible.builtin.debug:
-        msg: "{{ec2_instance}}"
+        msg: "{{ ec2_instance }}"
 
