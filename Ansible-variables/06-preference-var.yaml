@@ -1,0 +1,51 @@
+- name: varibale preferences
+  hosts: local
+  connection: local
+  
+  vars:
+   MYPLAYLEVELVARIBLE: "Hi Iam play level varibales"
+  
+  vars_prompt: 
+   - name: username
+     prompt: Please enter username
+     private: false
+   - name: password
+     prompt: Please enter password
+     private: true
+  
+  vars_files:
+  - outside-vars.yaml
+
+  tasks:
+  - name: printing play level varibales
+    ansible.builtin.debug:
+    msg: "Iam {{ MYPLAYLEVELVARIBLE }}"
+
+  - name: printing task level varibales
+    vars:
+    MYTASKSLEVELVARIBLE: "Hi Iam Task Level varibales"
+    ansible.builtin.debug:
+    msg: "Iam {{ MYTASKSLEVELVARIBLE }}"
+
+  - name: printing prompt level varibale
+    ansible.builtin.debug:
+    msg: "Your username is: {{username}} and your password is: {{password}}"
+
+  - name: printing files level varibale
+    ansible.builtin.debug:
+    msg: "course: {{COURSE}} and duration is: {{DURATION}} and trainer is: {{TRAINER}}"
+
+  - name: printing inventory level varibale
+    ansible.builtin.debug:
+    msg: "course: {{ANSIBLECOURSE}} and duration is: {{ANSIBLEDURATION}} and trainer is: {{ANSIBLETRAINER}}"
+
+  - name: printing args level varibale
+    ansible.builtin.debug:
+    msg: "Hi {{NAME}} Good Morning"
+   
+  
+  
+  
+
+     
+

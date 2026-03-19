@@ -1,0 +1,27 @@
+- name: ansible command module vs shell module
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: ansible command module vs shell module test for user
+      # ansible.builtin.command not works here
+      ansible.builtin.shell: cat /etc/passwd | grep root
+      register: users_output
+
+    - name: print users output
+      ansible.builtin.debug:
+        msg: "{{ users_output }}"
+    
+    - name: ansible command module vs shell module test for files
+      # ansible.builtin.command not works here
+      ansible.builtin.shell: ls -ltr > files.txt
+      register: files_output
+  
+    - name: print files output
+      ansible.builtin.debug:
+        msg: "{{ files_output }}"
+
+
+
+    - name: print output
+      debug:
+        var: users_output.stdout

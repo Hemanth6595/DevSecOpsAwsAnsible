@@ -1,0 +1,59 @@
+{
+    "sturndets":[
+
+            {
+    "firstName":"Hemnath Kumar",
+    "DOB":"1990-01-01",
+
+    "address":[
+        {
+            "type":"perminant",
+            "flatNumber":56,
+            "Street": "Mogulla Chandra Reddy",
+            "city":"hyderbad"
+
+        },
+        {
+            "type":"temperory",
+            "flatNumber":56,
+            "Street": "Mogulla Chandra Reddy",
+            "city":"hyderbad"
+
+        }
+    ],
+    
+    "Skills":["Java","Python","Clould"]
+
+},
+
+{
+    "firstName":"Hemnath Kumar",
+    "DOB":"1990-01-01",
+
+    "address":[
+        {
+            "type":"perminant",
+            "flatNumber":56,
+            "Street": "Mogulla Chandra Reddy",
+            "city":"hyderbad"
+
+        },
+        {
+            "type":"temperory",
+            "flatNumber":56,
+            "Street": "Mogulla Chandra Reddy",
+            "city":"hyderbad"
+
+        }
+    ],
+    
+    "Skills":["Java","Python","Clould"]
+
+}
+
+
+
+
+    ]
+
+}

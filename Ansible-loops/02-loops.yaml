@@ -1,0 +1,14 @@
+- name: installing packages
+  hosts: local
+  connection: local
+  become: yes
+  tasks:
+    - name: installing packages using loop
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+
+      # over all loop data type list '-'. But Looping entry data type is list of String
+      loop:
+        - nginx
+        - mysql

@@ -1,0 +1,8 @@
+- name: pign the server
+  hosts: web
+  tasks: 
+  - name: pign the web server
+    ansible.builtin.ping:
+
+
+ 

@@ -1,0 +1,15 @@
+- name: removing packages
+  hosts: local
+  connection: local
+  become: yes
+  tasks:
+    - name: removing packages using loop
+      ansible.builtin.package:
+        name: "{{ item.name }}" # Key
+        state: "{{ item.state }}" # Key
+
+      # over all loop data type list '-'. But Looping entry data type is list of map & Dictionary
+      loop:
+        - { name: "nginx" , state: "absent" }
+        - { name: "mysql" , state: "absent" }
+        

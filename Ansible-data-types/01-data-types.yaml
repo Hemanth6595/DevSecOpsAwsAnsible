@@ -1,0 +1,38 @@
+- name: datatypes
+  hosts: local
+  connection: local
+  vars:
+    PROGRM: "DevSecOpsWithAws" # String
+    DURATION: 140 # Integer
+    IS_LIVE: true # Boolean
+    TRAINERDETAILS:  # List of map or dictionary {}
+      personname: "Shiva Reddy"
+    TOPICS: # List of String '-' , []
+      - "shell"
+      - "ansible"
+      - "Terraform"
+    #MYTOPICS: # List '-' , []
+    # ["Shell","ansible","Terraform"]
+  tasks:
+  - name: print variables
+    ansible.builtin.debug:
+    msg: "String: {{ PROGRM }} , 
+      Integer: {{ DURATION }} , 
+      Boolean : {{ IS_LIVE }} , 
+      map OR dictionary: {{TRAINERDETAILS}} , 
+      List: {{ TOPICS }}"
+
+    # msg: "String: {{ PROGRM }} , Integer: {{ DURATION }} , Boolean : {{ IS_LIVE }} , map OR dictionary: {{TRAINERDETAILS}} , List: {{ TOPICS }}"
+
+    #msg: |
+    # String: {{ PROGRM }} 
+    # Integer: {{ DURATION }} 
+    # Boolean : {{ IS_LIVE }} 
+    # map OR dictionary: {{TRAINERDETAILS}} 
+    #  List: {{ TOPICS }}  
+
+
+    
+
+   
+

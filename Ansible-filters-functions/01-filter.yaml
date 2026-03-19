@@ -1,0 +1,67 @@
+- name: demo on filters
+  hosts: local
+  connection: local
+  vars:
+    TOPICS: linux, shell, terraform
+    fruits_string: "apple,banana,orange,grape"
+    PROJECTTAGSMAP:
+      name: ansible
+      project: roboshop
+      compounent: catalogue
+    PROJECTTAGSLIST:
+      [
+          {
+              "key": "name",
+              "value": "ansible"
+          },
+          {
+              "key": "project",
+              "value": "roboshop"
+          },
+          {
+              "key": "compounent",
+              "value": "catalogue"
+          }
+      ]
+  tasks:
+    - name: greetings
+      ansible.builtin.debug:
+        msg: "Hi Hemanth,{{ GREETINGS | default('Good Morning') }}"
+
+    - name: converting string to list
+      ansible.builtin.debug:
+        msg: "{{ TOPICS | split(',') }}"
+    
+    - name: Use the split filter to create a list
+      ansible.builtin.set_fact: # setting the varibale that is fruits_list varible
+        fruits_list: "{{ fruits_string | ansible.builtin.split(',') }}"
+
+    - name: Debug the resulting list
+      ansible.builtin.debug:
+        var: fruits_list
+        # msg: "{{fruits_list}}"
+
+    - name: converting map & dict to list
+      ansible.builtin.debug:
+        msg: "{{ PROJECTTAGSMAP | dict2items }}"
+
+    - name: converting list  to dict & map
+      ansible.builtin.debug:
+        msg: "{{ PROJECTTAGSLIST | items2dict }}"
+
+    - name: read students yaml
+      ansible.builtin.set_fact: # setting the varibale
+        students_yaml: "{{ lookup('file', students.yaml) | from_yaml }}"
+
+    
+    # converting yaml file  to Json
+    - name: converting yaml file to Json
+      ansible.builtin.debug:
+       msg: "{{students_yaml}}"
+
+
+
+       
+        
+
+    

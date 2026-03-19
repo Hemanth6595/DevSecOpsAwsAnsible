@@ -1,0 +1,50 @@
+<Students>
+    <studentOneInformation>
+        <FirstName>Hemanth</FirstName>
+        <DOB>1990-01-01</DOB>
+        <EmailId>Hemanthgueujupalli@gmail.com<EmailId>
+        <!--<Address>56 GSN Residency <Address> -->
+        <!--<Address>
+            <FlatNumber>56</FirstName>
+            <Street>Mogulla Chandra Reddy Colony </Street>
+            <city>hyderbad</city>
+        </Address> -->
+        <Addresses>
+            <perminantAddress>
+            <FlatNumber>56</FirstName>
+            <Street>Mogulla Chandra Reddy Colony</Street>
+            <city>hyderbad</city>
+            </perminantAddress>
+
+            <currentAddressOne>
+            <FlatNumber>56</FirstName>
+            <Street>Mogulla Chandra Reddy Colony</Street>
+            <city>hyderbad</city>
+            </currentAddress>
+        </Addresses>
+    </studentOneInformation>
+    <studentTwoInformation>
+        <FirstName>Kumar</FirstName>
+        <DOB>1990-02-02</DOB>
+        <EmailId>Hemanthgueujupally@gmail.com<EmailId>
+        <!--<Address>56 GSN Residency <Address> -->
+        <!--<Address>
+            <FlatNumber>56</FirstName>
+            <Street>Mogulla Chandra Reddy Colony </Street>
+            <city>hyderbad</city>
+        </Address> -->
+        <Addresses>
+            <perminantAddress>
+            <FlatNumber>56</FirstName>
+            <Street>Mogulla Chandra Reddy Colony</Street>
+            <city>hyderbad</city>
+            </perminantAddress>
+
+            <currentAddressOne>
+            <FlatNumber>56</FirstName>
+            <Street>Mogulla Chandra Reddy Colony</Street>
+            <city>hyderbad</city>
+            </currentAddress>
+        </Addresses>
+    </studentTwoInformation>
+</Students>

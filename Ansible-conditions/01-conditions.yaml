@@ -1,0 +1,19 @@
+- name: conditions
+  hosts: local
+  connection: local
+  
+  vars: 
+   IS_LIVE: false
+   NAME: "Hemanth"
+  
+  tasks:
+  - name: check the bool IS_LIVE
+    ansible.builtin.debug:
+      msg: "Yes, It Is Live {{ IS_LIVE }}"
+    when: IS_LIVE
+  
+  - name: check the string name 
+    ansible.builtin.debug:
+     msg: "Yes My Name Is {{NAME}}"
+    when: NAME=="Hemanth"
+      
