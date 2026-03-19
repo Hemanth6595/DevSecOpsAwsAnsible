@@ -2,8 +2,8 @@
   hosts: all
   connection: local
   vars:
-    sgid: sg-0cc36aed8dd6406ca
-    amiid: ami-0220d79f3f480ecf5
+    sg_id: sg-0cc36aed8dd6406ca
+    ami_id: ami-0220d79f3f480ecf5
     instancesenv: dev
     myec2intances: 
       - mongodb
@@ -12,8 +12,8 @@
     - name: creating ec2 intances
       amazon.aws.ec2_instance:
        instance_type: t3.micro
-       security_group: "{{ sgid }}"
-       image_id: "{{ amiid }}"
+       security_group: "{{ sg_id }}"
+       image_id: "{{ ami_id }}"
        name: "{{ item }}"
        tags: 
         Project: roboshop
