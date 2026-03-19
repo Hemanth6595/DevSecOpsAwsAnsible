@@ -1,0 +1,25 @@
+- name: "Hemanth Kumar"
+  dob: "1990-01-01"
+  mobilenumber: 12345678
+  addresses:
+  - type: "perminant"
+    flatNumber: 104
+    street: "colony"
+    city: "hyderbad"
+  - type: "current"
+    flatNumber: 1023
+    street: "colony 2"
+    city:  "hyderbad"  
+
+- name: "Hemanth Kumar"
+  dob: "1990-01-01"
+  mobilenumber: 12345678
+  addresses:
+  - type: "perminant"
+    flatNumber: 104
+    street: "colony"
+    city: "hyderbad"
+  - type: "current"
+    flatNumber: 1023
+    street: "colony 2"
+    city:  "hyderbad"  
