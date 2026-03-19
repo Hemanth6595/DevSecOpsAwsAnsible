@@ -4,7 +4,7 @@
   vars:
     COURSE: DEVOPS
     TOOL: ansible
-    MYIP: 246.567.89.123
+    MYIP: 192.23.89.123
     TOPICS: linux, shell, terraform
     fruits_string: "apple,banana,orange,grape"
     PROJECTTAGSMAP:
