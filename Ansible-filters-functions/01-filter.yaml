@@ -2,6 +2,7 @@
   hosts: local
   connection: local
   vars:
+    COURSE: DEVOPS
     TOPICS: linux, shell, terraform
     fruits_string: "apple,banana,orange,grape"
     PROJECTTAGSMAP:
@@ -53,11 +54,15 @@
       ansible.builtin.set_fact: # setting the varibale
         students_yaml: "{{ lookup('file', 'students.yaml' ) | from_yaml }}"
 
-    
     # converting yaml file  to Json
     - name: converting yaml file to Json
       ansible.builtin.debug:
        msg: "{{ students_yaml | to_nice_json }}"
+    
+    # converting string upper case to lower case 
+    - name: converting string upper case to lower case 
+      ansible.builtin.debug:
+       msg: "{{ COURSE | lower }}"
 
 
 
