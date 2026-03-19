@@ -1,5 +1,6 @@
 - name: idempotency
   hosts: local
+  become: yes
   connection: local
   tasks:
     - name: add user
