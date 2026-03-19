@@ -3,6 +3,7 @@
   connection: local
   vars:
     COURSE: DEVOPS
+    TOOL: ansible
     TOPICS: linux, shell, terraform
     fruits_string: "apple,banana,orange,grape"
     PROJECTTAGSMAP:
@@ -63,6 +64,11 @@
     - name: converting string upper case to lower case 
       ansible.builtin.debug:
        msg: "{{ COURSE | lower }}"
+
+    # converting string lower case to upper case 
+    - name: converting string upper case to lower case 
+      ansible.builtin.debug:
+       msg: "{{ TOOL | upper }}"
 
 
 
