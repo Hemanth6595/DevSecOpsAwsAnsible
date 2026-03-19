@@ -3,7 +3,7 @@
   connection: local
   tasks:
     - name: ansible command module vs shell module test for user
-      # ansible.builtin.command not works here
+      # ansible.builtin.command  cat /etc/passwd | grep root ---> not works here
       ansible.builtin.shell: cat /etc/passwd | grep root
       register: users_output
 
@@ -20,8 +20,20 @@
       ansible.builtin.debug:
         msg: "{{ files_output }}"
 
-
-
     - name: print output
       debug:
         var: users_output.stdout
+
+    - name: checking the user is exsiting in the server roboshop user id
+      ansible.builtin.command: id roboshop 
+      register: user_output
+      ignore_errors: true
+
+    - name: print the user_output
+      ansible.builtin.debug:
+      msg: "{{ user_output }}"
+    
+    - name: create user
+      ansible.builtin.command: useradd roboshop
+      when: user_output.rc != 0
+        

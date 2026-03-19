@@ -3,6 +3,6 @@
   become: yes
   connection: local
   tasks:
-    - name: add user
+    - name: adding user
       ansible.builtin.user: 
        name: johnd
