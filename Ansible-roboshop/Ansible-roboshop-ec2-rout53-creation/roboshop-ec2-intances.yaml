@@ -1,3 +1,4 @@
+# ansible-playbook -i localhost, -e instances['mongodb','catalogue','redis','user','cart','mysql',''shipping','payment','frontend']roboshop.yaml
 - name: creating ec2 intances And rout53 records
   hosts: all
   connection: local
@@ -10,6 +11,7 @@
       - mongodb
       - catalogue
     domain_name: devsecopsaws88s.online
+    action: create
 
   tasks:
     - name: creating ec2 intances
@@ -25,30 +27,55 @@
           name: "{{ item }}-{{ instances_env }}"
       loop: "{{ ec2_intances_names }}"
       register: ec2_instances_output
+      when: action == "create"
 
     - name: print the ec2_instance_output
       ansible.builtin.debug:
         msg: "{{ ec2_instances_output }}"
+      when: action == "create"
 
-    - name: create rout53 records
+    - name: create rout53 records for mongodb and catalogue
       amazon.aws.route53:
         state: present
         zone: "{{ domain_name }}"
-        record: "{{ item.item }}-{{ instances_env }}.{{ domain_name }}" # mongodb-dev.devsecopsaws88s.online, frontend-dev.devsecopsaws88s.online
+        record: "{{ item.item }}-{{ instances_env }}.{{ domain_name }}" # mongodb-dev.devsecopsaws88s.online, catalogue-dev.devsecopsaws88s.online
         type: A
         ttl: 1
-        value: "{{item.instances[0].private_ip_address}}"
+        value: "{{item.instances[0].private_ip_address}}" # List
         wait: true
       loop: "{{ ec2_instances_output.results }}"
+      when: action == "create"
 
-    - name: create rout53 records
+    - name: create rout53 records for frontend
       amazon.aws.route53:
           state: present
           zone: "{{ domain_name }}"
-          record: "roboshop-{{ instances_env }}.{{ domain_name }}" # mongodb-dev.devsecopsaws88s.online, frontend-dev.devsecopsaws88s.online
+          record: "roboshop-{{ instances_env }}.{{ domain_name }}" # roboshop-dev.devsecopsaws88s.online
           type: A
           ttl: 1
           value: "{{item.instances[0].public_ip_address}}"
           wait: true
       loop: "{{ ec2_instances_output.results }}"
-      when: item.item == "frontend"
+      when: 
+        - item.item == "frontend"
+        - action == "create"
+
+
+    - name: delete aws route 53 records
+      amazon.aws.route53:
+        state: absent     
+        record: "{{ item }}-{{ instances_env }}.{{ domain_name }}" # roboshop-dev.devsecopsaws88s.online, frontend-dev.devsecopsaws88s.online
+        type: A
+        ttl: 1
+      loop: "{{ ec2_intances_names }}"
+      when: action=="destroy"
+
+
+    - name: delete aws ec2 instances
+      amazon.aws.ec2_instance:
+        state: absent
+        name: "{{ item }}-{{ instances_env }}"
+        wait: false
+      loop: "{{ ec2_intances_names }}"
+      when: action=="destroy"
+    
