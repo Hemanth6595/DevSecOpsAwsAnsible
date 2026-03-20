@@ -1,4 +1,4 @@
-# ansible-playbook -i localhost, -e "my_list=['item1','item2','item3']"['mongodb','redis','mysql','user','rabbinq','catalogue','cart','shipping','payment','frontend']"roboshop.yaml
+# ansible-playbook inventory -i localhost, -e "my_list="['mongodb','redis','mysql','user','rabbinq','catalogue','cart','shipping','payment','frontend']"roboshop.yaml
 - name: creating ec2 intances And rout53 records
   hosts: all
   connection: local
@@ -9,7 +9,15 @@
     instances_env: dev
     ec2_intances_names: 
       - mongodb
+      - mysql
+      - redis
+      - rabbinq
       - catalogue
+      - user
+      - cart
+      - shipping
+      - payment
+      - frontend
     domain_name: devsecopsaws88s.online
     action: create
 
