@@ -1,5 +1,5 @@
 - name: pign the server
-  hosts: web
+  hosts: mongodb
   tasks: 
   - name: pign the web server
     ansible.builtin.ping:
