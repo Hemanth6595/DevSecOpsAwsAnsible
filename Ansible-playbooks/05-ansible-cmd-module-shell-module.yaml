@@ -1,5 +1,5 @@
 - name: ansible command module vs shell module
-  hosts: localhost
+  hosts: local
   connection: local
   tasks:
     - name: ansible command module vs shell module test for user
