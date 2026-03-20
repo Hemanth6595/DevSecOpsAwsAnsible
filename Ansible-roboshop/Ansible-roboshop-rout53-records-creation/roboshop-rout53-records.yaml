@@ -5,14 +5,19 @@
   vars:
     
     instances_env: dev
-    ec2_intances_names: 
-      - mongodb
-      - catalogue
     domain_name: devsecopsaws88s.online
     action: create
 
+
+
+    tasks:
+    - name: creating ec2 intances
+      amazon.aws.ec2_instance:
+      register: ec2_instances_output
+      when: action == "create"
+
   tasks:
-    - name: create rout53 records for mongodb and catalogue
+    - name: create rout53 records 
       amazon.aws.route53:
         state: present
         zone: "{{ domain_name }}"
