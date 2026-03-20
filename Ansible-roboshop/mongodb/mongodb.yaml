@@ -14,10 +14,18 @@
 
     - name: Start and enable mongodb 
       ansible.builtin.service:
-        name: mongod
-        enabled: yes
+        name: mongod   
         state: started
+        enabled: yes
 
+    - name: Check services
+      ansible.builtin.shell: systemctl list-units --type=service | grep mongo
+      register: mongo_services
+
+    - debug:
+        var: mongo_services.stdout
+
+        
     - name: allow connections
       ansible.builtin.replace:
         path: /etc/mongod.conf
