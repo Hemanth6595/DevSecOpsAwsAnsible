@@ -1,7 +1,7 @@
 - name: configuring redis
-- hosts: redis
-- become: yes
-- tasks:
+  hosts: redis
+  become: yes
+  tasks:
     - name: ping the redis server
       ansible.builtin.ping:
 
