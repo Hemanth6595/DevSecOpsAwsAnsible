@@ -14,8 +14,8 @@
       register: ec2_output
 
     - name: Print EC2 info
-      debug:
-        vars: ec2_output.instances
+      ansible.builtin.debug:
+       msg:"{{ ec2_output.instances }}"
     
 
     
