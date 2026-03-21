@@ -1,11 +1,12 @@
 - name: route53 records
   hosts: all
   connection: local
-  route53_action: create
+  
 
   vars:
     instances_env: dev
     domain_name: devsecopsaws88s.online
+    route53_action: create
 
   tasks:
     - name: Read file
