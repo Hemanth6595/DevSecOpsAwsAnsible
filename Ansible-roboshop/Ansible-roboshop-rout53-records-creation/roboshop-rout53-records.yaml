@@ -11,7 +11,8 @@
   tasks:
     - name: Print EC2 instances
       ansible.builtin.debug:
-        msg: ec2_output.json 
+        msg:ec2_output.json.results 
     
 
-   
+    
+ 
