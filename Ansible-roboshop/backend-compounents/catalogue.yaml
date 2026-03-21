@@ -2,7 +2,7 @@
   hosts: catalogue
   become: yes
   tasks:
-    - name: pign the web server
+    - name: pign the catalogue server
       ansible.builtin.ping:
       
     - name: disable nodejs
