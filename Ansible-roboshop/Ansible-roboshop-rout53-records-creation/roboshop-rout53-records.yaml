@@ -16,11 +16,11 @@
 
     - name: Convert ec2 instances output JSON to variable
       set_fact:
-        ec2_instances: "{{ ec2_instances_output_json_file.content | b64decode | from_json }}"
+        ec2_instances_Details: "{{ ec2_instances_output_json_file.content | b64decode | from_json }}"
 
     - name: Access values
       debug:
-        msg: "{{ ec2_instances.results}}" 
+        msg: "{{ ec2_instances_Details.results }}" 
     
 
     - name: create rout53 records 
@@ -32,7 +32,7 @@
         ttl: 1
         value: "{{item.instances[0].private_ip_address}}" # List
         wait: true
-      loop: "{{ ec2_instances_output_json_file.results }}"
+      loop: "{{ ec2_instances_Details.results }}"
       when: route53_action == "create"
 
     - name: create rout53 records for frontend
@@ -44,20 +44,13 @@
           ttl: 1
           value: "{{item.instances[0].public_ip_address}}"
           wait: true
-      loop: "{{ ec2_instances_output_json_file.results }}"
+      loop: "{{ ec2_instances_Details.results }}"
       when: 
         - item.item == "frontend"
         - route53_action == "create"
 
 
-    - name: delete aws route 53 records
-      amazon.aws.route53:
-        state: absent     
-        record: "{{ item }}-{{ instances_env }}.{{ domain_name }}" # roboshop-dev.devsecopsaws88s.online, frontend-dev.devsecopsaws88s.online
-        type: A
-        ttl: 1
-      loop: "{{ ec2_intances_names }}"
-      when: acroute53_actiontion=="destroy"
+    
 
 
  
