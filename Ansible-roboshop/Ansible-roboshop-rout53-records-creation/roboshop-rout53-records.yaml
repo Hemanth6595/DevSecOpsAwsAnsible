@@ -15,7 +15,10 @@
 
     - name: Print EC2 info
       debug:
-        vars: ec2_output
+        vars: ec2_output.instances
     
+
+    
+
 
  
