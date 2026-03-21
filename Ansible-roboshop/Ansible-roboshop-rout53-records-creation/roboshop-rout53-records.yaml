@@ -1,6 +1,7 @@
 - name: route53 records
   hosts: all
   connection: local
+  route53_action: create
 
   vars:
     instances_env: dev
@@ -12,14 +13,50 @@
         src: ec2_output.json
       register: ec2_instances_output_json_file
 
-    - name: Convert JSON to variable
+    - name: Convert ec2 instances output JSON to variable
       set_fact:
-        my_data: "{{ ec2_instances_output_json_file.content | b64decode | from_json }}"
+        ec2_instances: "{{ ec2_instances_output_json_file.content | b64decode | from_json }}"
 
     - name: Access values
       debug:
-        msg: "{{ my_data.results}}" 
+        msg: "{{ ec2_instances.results}}" 
     
 
-    
+    - name: create rout53 records 
+      amazon.aws.route53:
+        state: present
+        zone: "{{ domain_name }}"
+        record: "{{ item.item }}-{{ instances_env }}.{{ domain_name }}" # mongodb-dev.devsecopsaws88s.online, catalogue-dev.devsecopsaws88s.online
+        type: A
+        ttl: 1
+        value: "{{item.instances[0].private_ip_address}}" # List
+        wait: true
+      loop: "{{ ec2_instances_output_json_file.results }}"
+      when: route53_action == "create"
+
+    - name: create rout53 records for frontend
+      amazon.aws.route53:
+          state: present
+          zone: "{{ domain_name }}"
+          record: "roboshop-{{ instances_env }}.{{ domain_name }}" # roboshop-dev.devsecopsaws88s.online
+          type: A
+          ttl: 1
+          value: "{{item.instances[0].public_ip_address}}"
+          wait: true
+      loop: "{{ ec2_instances_output_json_file.results }}"
+      when: 
+        - item.item == "frontend"
+        - route53_action == "create"
+
+
+    - name: delete aws route 53 records
+      amazon.aws.route53:
+        state: absent     
+        record: "{{ item }}-{{ instances_env }}.{{ domain_name }}" # roboshop-dev.devsecopsaws88s.online, frontend-dev.devsecopsaws88s.online
+        type: A
+        ttl: 1
+      loop: "{{ ec2_intances_names }}"
+      when: acroute53_actiontion=="destroy"
+
+
  
