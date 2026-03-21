@@ -15,8 +15,8 @@
     
 
     - name: Access values
-      debug:
-        msg: son_file
+      ansible.builtin.debug:
+        msg: json_file
     
 
     
