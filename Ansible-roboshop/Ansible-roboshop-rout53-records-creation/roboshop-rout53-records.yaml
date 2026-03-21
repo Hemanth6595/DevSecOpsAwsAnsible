@@ -10,8 +10,8 @@
 
   tasks:
     - name: Print EC2 instances
-      debug:
-        var: ec2_output.json
+      ansible.builtin.debug:
+        msg: "{{ ec2_output.json }}" 
     
 
    
