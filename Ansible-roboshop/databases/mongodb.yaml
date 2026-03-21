@@ -22,7 +22,8 @@
       ansible.builtin.shell: systemctl list-units --type=service | grep mongo
       register: mongo_services
 
-    - debug:
+    - name: printing the mongo services
+      debug:
         var: mongo_services.stdout
 
         
