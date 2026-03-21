@@ -5,18 +5,20 @@
   vars:
     instances_env: dev
     domain_name: devsecopsaws88s.online
-  
+
   tasks:
     - name: Read file
       slurp:
         src: ec2_output.json
-      register: json_file
+      register: ec2_instances_output_json_file
 
-    
+    - name: Convert JSON to variable
+      set_fact:
+        my_data: "{{ ec2_instances_output_json_file.content | b64decode | from_json }}"
 
     - name: Access values
-      ansible.builtin.debug:
-        msg: "{{ json_file }}"
+      debug:
+        msg: "{{ my_data.results}}" 
     
 
     
