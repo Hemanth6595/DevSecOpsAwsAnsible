@@ -5,9 +5,6 @@
     - name: ping the redis server
       ansible.builtin.ping:
 
-    - name: disabel the default redis
-      ansible.builtin.command: dnf module disable redis -y
-
     - name: Install redis:7
       ansible.builtin.dnf:
         name: redis
