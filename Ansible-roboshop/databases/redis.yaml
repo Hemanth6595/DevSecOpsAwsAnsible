@@ -9,7 +9,7 @@
       ansible.builtin.dnf:
         name: redis
         state: present
-        enabled: yes
+      
 
     - name: allow connections
       ansible.builtin.replace:
