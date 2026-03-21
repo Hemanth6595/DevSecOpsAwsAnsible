@@ -16,7 +16,7 @@
 
     - name: Access values
       ansible.builtin.debug:
-        msg: json_file
+        msg: "{{ json_file }}"
     
 
     
