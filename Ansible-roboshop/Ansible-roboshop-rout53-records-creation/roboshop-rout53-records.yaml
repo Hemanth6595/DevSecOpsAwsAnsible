@@ -12,13 +12,11 @@
         src: ec2_output.json
       register: json_file
 
-    - name: Convert JSON to variable
-      set_fact:
-        my_data: "{{ json_file.content | b64decode | from_json }}"
+    
 
     - name: Access values
       debug:
-        msg: "{{ my_data.key_name }}"
+        msg: son_file
     
 
     
