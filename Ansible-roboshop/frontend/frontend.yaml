@@ -34,7 +34,7 @@
 
     - name: Copy nginx.conf
       ansible.builtin.template:
-        src: frontend.service
+        src: nginx.conf
         dest: /etc/nginx/nginx.conf
 
     
