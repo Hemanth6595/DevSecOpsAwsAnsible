@@ -2,6 +2,10 @@
   hosts: local
   connection: local
   become: yes
+  vars:
+   mypackages:
+     - { name: "nginx" , state: "absent" }
+     - { name: "mysql" , state: "absent" }
   tasks:
     - name: removing packages using loop
       ansible.builtin.package:

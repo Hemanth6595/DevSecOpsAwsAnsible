@@ -1,0 +1,89 @@
+- name: configure shipping
+  hosts: shipping
+  become: yes
+  vars:
+   packages:
+    - maven
+    - mysql
+
+  tasks:
+    - name:  Install Java
+      ansible.builtin.dnf:
+       name: "{{ item }}"
+       state: present
+      loop:
+        "{{ packages }}"
+
+    - name: Add create the system user 'johnd' with a specific uid and a primary group of 'admin'
+      ansible.builtin.user:
+        name: roboshop
+        system: true
+        home: /app
+        shell: /sbin/nologin
+        comment: "roboshop system user"
+
+    - name: Recursively delete and remove app directory
+      ansible.builtin.file:
+        path: /app
+        state: absent
+
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: /app
+        state: directory
+
+    - name: Recursively delete and remove shipping zip file in tmp/shipping.zip
+      ansible.builtin.file:
+        path: /tmp/shipping.zip
+        state: absent
+        
+    - name: Downloading the shipping zip file in tmp/shipping.zip
+      ansible.builtin.get_url:
+        url: https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip 
+        dest: /tmp/shipping.zip
+ 
+    - name: unzipping & unarchive the shipping in /app from /tmp/shipping.zip
+      ansible.builtin.unarchive:
+        src: /tmp/shipping.zip
+        dest: /app  
+        remote_src: yes
+
+    - name: adding maven dependencies to package Java that in /app directory
+      ansible.builtin.command: mvn clean package
+      args: 
+        chdir: /app
+
+    - name: adding maven dependencies to package Java that in /app directory
+      ansible.builtin.command: mmv target/shipping-1.0.jar shipping.jar 
+      args: 
+        chdir: /app
+
+    - name: Copy shipping systemctl service
+      ansible.builtin.template:
+        src: shipping.service
+        dest: /etc/systemd/system/shipping.service
+
+    - name: daemon reload
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+
+      # Import of sql script with encoding option
+    - name: Import dump.sql with specific latin1 encoding , similar to mysql -u <username> --default-character-set=latin1 -p <password> < dump.sql
+      community.mysql.mysql_db:
+        state: import
+        name: all
+        login_host: "{{ MYSQL_HOST }}"
+        login_user: root
+        login_password: RoboShop@1
+        target: "{{ iteam }}"
+      loop:
+        - /app/db/schema.sql
+        - /app/db/app-user.sql 
+        - /app/db/master-data.sql
+
+    
+    - name: start or restarted shipping
+      ansible.builtin.service:
+        name: shipping
+        state: restarted
+        enabled: yes

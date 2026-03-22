@@ -54,7 +54,7 @@
       community.general.npm:
         path: /app
 
-    - name: Copy cart service
+    - name: Copy cart systemctl service
       ansible.builtin.template:
         src: cart.service
         dest: /etc/systemd/system/cart.service
