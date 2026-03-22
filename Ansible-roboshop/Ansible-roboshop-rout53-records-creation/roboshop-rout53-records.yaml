@@ -50,14 +50,7 @@
         - route53_action == "create"
 
 
-    - name: delete aws route 53 records
-      amazon.aws.route53:
-        state: absent     
-        record: "{{ item }}-{{ instances_env }}.{{ domain_name }}" # roboshop-dev.devsecopsaws88s.online, frontend-dev.devsecopsaws88s.online
-        type: A
-        ttl: 1
-      loop: "{{ ec2_intances_names }}"
-      when: acroute53_actiontion=="destroy"
+ 
 
 
  
