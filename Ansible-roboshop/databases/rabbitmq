@@ -1,0 +1,41 @@
+- name: configure rabbitmq server
+  hosts: rabbitmq
+  become: yes
+  tasks: 
+    - name: Copy rabbitmq repo
+      ansible.builtin.copy:
+        src: rabbitmq.repo
+        dest: /etc/yum.repos.d/rabbitmq.repo
+
+    - name: install rabbitmq
+      ansible.builtin.dnf:
+       name: rabbitmq-server
+       status: present
+
+    - name: start and enable the rabbitmq
+      ansible.builtin.services:
+        name: rabbitmq-server
+        status: restarted
+        enable: yes
+
+
+    - name: Check services
+      ansible.builtin.shell: systemctl list-units --type=service | grep rabbitmq
+      register: rabbitmq_services
+
+
+    - name: printing the rabbitmq services
+      debug:
+        var: rabbitmq_services.stdout
+
+
+    - name: The user doesn't have topic permission rules for other vhosts
+      community.rabbitmq.rabbitmq_user:
+        user: roboshop
+        password: roboshop123
+        permissions:
+        - vhost: /
+          configure_priv: .*
+          read_priv: .*
+          write_priv: .*
+      state: present

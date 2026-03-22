@@ -11,7 +11,7 @@
       - mongodb
       - mysql
       - redis
-      - rabbinq
+      - rabbitmq
       - catalogue
       - user
       - cart
