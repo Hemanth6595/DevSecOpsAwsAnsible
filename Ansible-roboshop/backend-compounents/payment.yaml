@@ -64,7 +64,7 @@
 
     - name: start or restarted payment
       ansible.builtin.service:
-        name: shipping
+        name: payment
         state: restarted
         enabled: yes
 
