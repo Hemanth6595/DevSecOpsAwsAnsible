@@ -4,7 +4,7 @@
   tasks:
     - name: Install MYSQL server
       ansible.builtin.dnf:
-       name: mysql-server
+       name: mysql
        status: present
 
     - name: start and enable or restarted the mysql service
