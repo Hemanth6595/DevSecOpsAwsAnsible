@@ -6,9 +6,9 @@
       ansible.builtin.shell: dnf module enable nginx:1.24 -y
 
     - name: install nginx
-      ansible.buitin.dnf:
+      ansible.builtin.dnf:
         name: nginx
-        status: present
+        state: present
 
     - name: Remove And Delete the file completely
       ansible.builtin.file:
