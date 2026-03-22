@@ -67,17 +67,19 @@
       ansible.builtin.systemd_service:
         daemon_reload: true
 
-    - name: Install pip and PyMySQL
+    - name: Install pip python
       ansible.builtin.dnf:
-        name: "{{item}}"
+        name: python3-pip
         state: present
-      loop: 
-       - python3-pip
-       - cryptography
+        
 
-    - name: Install PyMySQL via pip
+    - name: Install PyMySQL via pip and cryptography
       ansible.builtin.pip:
-        name: PyMySQL
+        name: "{{item}}"
+
+      loop:
+        - PyMySQL
+        - cryptography
 
       # Import of sql script with encoding option
     - name: Import dump.sql with specific latin1 encoding , similar to mysql -u <username> --default-character-set=latin1 -p <password> < dump.sql
