@@ -54,7 +54,7 @@
         chdir: /app
 
     - name: adding maven dependencies to package Java that in /app directory
-      ansible.builtin.command: mmv target/shipping-1.0.jar shipping.jar 
+      ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar  
       args: 
         chdir: /app
 
