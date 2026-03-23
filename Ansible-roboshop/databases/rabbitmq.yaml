@@ -18,6 +18,12 @@
         status: restarted
         enable: yes
 
+    - name: Start RabbitMQ
+      ansible.builtin.systemd:
+        name: rabbitmq-server
+        state: started
+        enabled: yes
+
 
     - name: Check services
       ansible.builtin.shell: systemctl list-units --type=service | grep rabbitmq
