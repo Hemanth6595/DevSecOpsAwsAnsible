@@ -1,5 +1,5 @@
 # ansible-playbook inventory -i localhost, -e "my_list="['mongodb','redis','mysql','user','rabbinq','catalogue','cart','shipping','payment','frontend']"roboshop.yaml
-- name: creating ec2 intances And rout53 records
+- name: creating ec2 intances
   hosts: all
   connection: local
 
