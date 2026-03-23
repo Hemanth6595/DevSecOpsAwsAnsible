@@ -12,12 +12,6 @@
         name: rabbitmq-server
         state: present
 
-    - name: start and enable the rabbitmq
-      ansible.builtin.service:
-        name: rabbitmq-server
-        status: restarted
-        enable: yes
-
     - name: Start RabbitMQ
       ansible.builtin.systemd:
         name: rabbitmq-server
