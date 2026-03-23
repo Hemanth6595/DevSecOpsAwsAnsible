@@ -1,0 +1,35 @@
+- name: Copy mongodb repo
+  ansible.builtin.copy:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Install mongodb server
+  ansible.builtin.dnf:
+    name: mongodb-org
+    state: present
+
+- name: Start and enable mongodb 
+  ansible.builtin.service:
+    name: mongod   
+    state: started
+    enabled: yes
+
+- name: Check services
+  ansible.builtin.shell: systemctl list-units --type=service | grep mongo
+  register: mongo_services
+
+- name: printing the mongo services
+  debug:
+    var: mongo_services.stdout
+
+    
+- name: allow connections
+  ansible.builtin.replace:
+    path: /etc/mongod.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
+
+- name: restart mongodb
+  ansible.builtin.service:
+    name: mongod
+    state: restarted

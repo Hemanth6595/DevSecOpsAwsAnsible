@@ -35,12 +35,12 @@
           name: "{{ item }}-{{ instances_env }}"
       loop: "{{ ec2_intances_names }}"
       register: ec2_instances_output
-      when: action == "create"
+      when: ec2_intances_action_mode == "create"
 
     - name: print the ec2_instance_output
       ansible.builtin.debug:
         msg: "{{ ec2_instances_output }}"
-      when: action == "create"
+      when: ec2_intances_action_mode == "create"
 
     - name: delete aws ec2 instances
       amazon.aws.ec2_instance:
@@ -48,5 +48,5 @@
         name: "{{ item }}"
         wait: false
       loop: "{{ ec2_intances_names }}"
-      when: action=="destroy"
+      when: ec2_intances_action_mode=="destroy"
     
