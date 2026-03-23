@@ -19,7 +19,7 @@
       - payment
       - frontend
     domain_name: devsecopsaws88s.online
-    action: create
+    ec2_intances_action_mode: create
 
   tasks:
     - name: creating ec2 intances

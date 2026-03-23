@@ -6,7 +6,7 @@
   vars:
     instances_env: dev
     domain_name: devsecopsaws88s.online
-    route53_action: create
+    route53_action_mode: create
     ec2_intances_names: 
       - mongodb
       - mysql
@@ -67,7 +67,7 @@
         type: A
         ttl: 1
       loop: "{{ ec2_intances_names }}"
-      when: acroute53_actiontion=="destroy"
+      when: route53_action=="destroy"
 
  
 
