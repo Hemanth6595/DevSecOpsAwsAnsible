@@ -44,7 +44,7 @@
         value: "{{item.instances[0].private_ip_address}}" # List
         wait: true
       loop: "{{ ec2_instances_Details.results }}"
-      when: route53_action == "create"
+      when: route53_action_mode == "create"
 
     - name: create rout53 records for frontend
       amazon.aws.route53:
@@ -58,7 +58,7 @@
       loop: "{{ ec2_instances_Details.results }}"
       when: 
         - item.item == "frontend"
-        - route53_action == "create"
+        - route53_action_mode == "create"
 
     - name: delete aws route 53 records
       amazon.aws.route53:
@@ -68,14 +68,14 @@
         type: A
         ttl: 1
       loop: "{{ ec2_intances_names }}"
-      when: route53_action == "destroy"
+      when: route53_action_mode == "destroy"
 
 
     - name: print the rout53
       debug:
        msg: "{{ item }}-{{ instances_env }}.{{ domain_name }}"
       loop: "{{ ec2_intances_names }}"
-      when: route53_action == "destroy"
+      when: route53_action_mode == "destroy"
 
  
 
