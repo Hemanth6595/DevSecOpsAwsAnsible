@@ -69,6 +69,13 @@
       loop: "{{ ec2_intances_names }}"
       when: route53_action == "destroy"
 
+
+    - name: print the rout53
+      debug:
+       msg: "{{ item }}-{{ instances_env }}.{{ domain_name }}"
+      loop: "{{ ec2_intances_names }}"
+      when: route53_action == "destroy"
+
  
 
 
