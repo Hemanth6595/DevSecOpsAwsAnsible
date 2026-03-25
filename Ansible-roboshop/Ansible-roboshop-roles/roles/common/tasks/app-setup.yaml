@@ -1,0 +1,33 @@
+- name: Add create the system user 'johnd' with a specific uid and a primary group of 'admin'
+  ansible.builtin.user:
+    name: roboshop
+    system: true
+    home: /app
+    shell: /sbin/nologin
+    comment: "roboshop system user"
+
+- name: Recursively delete and remove app directory
+  ansible.builtin.file:
+    path: /app
+    state: absent
+
+- name: Create app directory if it does not exist
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: Recursively delete and remove {{ component }} zip file in tmp/{{ component }}.zip
+  ansible.builtin.file:
+    path: /tmp/{{ component }}.zip
+    state: absent
+    
+- name: Downloading the {{ component }} zip file in tmp/catalogue.zip
+  ansible.builtin.get_url:
+    url: https://roboshop-artifacts.s3.amazonaws.com/{{ component }}-v3.zip 
+    dest: /tmp/{{ component }}.zip
+
+- name: unzipping & unarchive the catalogue in /app from /tmp/{{ component }}.zip
+  ansible.builtin.unarchive:
+    src: /tmp/{{ component }}.zip
+    dest: /app  
+    remote_src: yes
