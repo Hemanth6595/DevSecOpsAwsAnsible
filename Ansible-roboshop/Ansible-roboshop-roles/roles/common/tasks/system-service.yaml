@@ -1,0 +1,5 @@
+- name: start or restarted catalogue
+  ansible.builtin.service:
+    name: user
+    state: restarted
+    enabled: yes
