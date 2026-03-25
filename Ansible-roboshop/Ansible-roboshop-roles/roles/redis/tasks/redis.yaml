@@ -5,7 +5,7 @@
   ansible.builtin.dnf:
     name: redis
     state: present
-
+  
 - name: allow connections
   ansible.builtin.replace:
     path: /etc/redis/redis.conf
