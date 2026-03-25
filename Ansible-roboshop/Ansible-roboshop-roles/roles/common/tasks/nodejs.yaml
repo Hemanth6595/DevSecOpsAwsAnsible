@@ -6,7 +6,6 @@
     name: nodejs
     state: present
 
-
 - name: adding npm dependencies to package.nodejs that in /app directory
   community.general.npm:
     path: /app
